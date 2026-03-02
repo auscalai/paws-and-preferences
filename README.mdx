@@ -1,0 +1,134 @@
+# Paws and Preferences
+
+<div align="center">
+  <img src="https://cataas.com/cat/gif" alt="Cat GIF" width="200" style={{ borderRadius: '15px', marginBottom: '20px' }} />
+</div>
+
+**Paws and Preferences** is a highly interactive, responsive "Tinder-style" cat matching web application developed as a technical assessment for **Netizen Experience**. Built purely with Vanilla JavaScript, HTML5, and CSS3, it showcases robust DOM manipulation, smooth animations, and touch-gesture integrations without relying on heavy frontend frameworks.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Key Features](#key-features)
+- [Project Structure](#project-structure)
+- [Installation Guide](#installation-guide)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Environment Variables](#environment-variables)
+- [Contribution Guide](#contribution-guide)
+- [Support and Contact](#support-and-contact)
+
+## Introduction
+
+Finding the perfect feline friend has never been easier. Paws and Preferences allows users to rapidly swipe left or right through an endless stack of cats served directly from the Cataas (Cat as a Service) API.
+
+Designed with a **Mobile-First** approach and utilizing **Hammer.js** for native-feeling touch gestures, this application emphasizes performance through DOM pre-rendering and clean state management.
+
+## Key Features
+
+- **Fluid Card Stack UI:** Custom 3D-stacked interface with calculated scaling and depth effects.
+- **Precise Swipe Gestures:** Integrated Hammer.js for responsive touch/mouse panning and velocity-based swipe recognition.
+- **Keyboard Accessibility:** Full keyboard support (Arrow keys or A/D) with `tabindex` and `aria-*` compliance.
+- **Dynamic Feedback:** Action buttons gradually scale and glow based strictly on drag progress (`deltaX`).
+- **Optimized Rendering:** Elements are 100% pre-rendered in the DOM to eliminate layout shifts or flashing during rapid swiping.
+- **Custom Design System:** Built utilizing glassmorphism, contextual shadows, and the `Fredoka` and `Nunito` font families.
+
+## Project Structure
+
+This project adopts a zero-build-tool philosophy to demonstrate deep architectural understanding of native web technologies.
+
+<details>
+<summary><b>Click to expand folder structure</b></summary>
+
+```text
+paws-and-preferences/
+├── index.html       # The single-page entry point and HTML shell
+├── styles.css       # Complete design system, animations, and responsive utilities
+├── app.js           # Core singleton state machine, API integration, and gesture controls
+├── README.mdx       # Project documentation (this file)
+└── .gitignore       # Git exclusion rules
+```
+</details>
+
+## Installation Guide
+
+Since the application uses no external build steps (Webpack, Vite, etc.), getting started is incredibly fast.
+
+### Prerequisites
+
+You simply need a web browser and a local file server.
+
+### Setup Instructions
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/auscalai/paws-and-preferences.git
+   cd paws-and-preferences
+   ```
+
+2. **Serve the project:**
+   You can use any local web server. Here are two quick options:
+   
+   **Using Node.js (npx):**
+   ```bash
+   npx serve -l 3000
+   ```
+   
+   **Using Python 3:**
+   ```bash
+   python -m http.server 3000
+   ```
+
+3. **Open the App:**
+   Navigate to `http://localhost:3000` in your preferred web browser.
+
+## Usage
+
+Once the application loads:
+- **Swipe Right** or click the **Mint Heart Button** (or press the `Right Arrow` / `D` key) to **Like** a cat.
+- **Swipe Left** or click the **Coral Cross Button** (or press the `Left Arrow` / `A` key) to **Nope** a cat.
+- Once you reach the end of the stack (15 cats), a summary gallery will render showcasing all of your chosen favorites.
+- Click **Play Again** to fetch a fresh batch of cats.
+
+## API Reference
+
+We rely entirely on the **[Cataas (Cat as a Service) API](https://cataas.com/)** to populate the application data.
+
+### Endpoints Used
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/cats` | Fetches a JSON array of cat metadata (IDs, tags, mimetypes). |
+| `GET` | `/cat/{id}` | Direct URL mapping to display the parsed cat image. |
+
+**Query Parameters Configuration:**
+- `limit=15`: Request exactly 15 cats per batch to match our configured stack size.
+- `skip={random}`: Generates a random integer offset to ensure the user gets fresh cats on every play session.
+
+## Environment Variables
+
+**No Environment Variables Required.**
+  
+Because Cataas is a public, open API, there are no API keys, client secrets, or `.env` files required to run this project. It is fully operable immediately after cloning.
+
+## Contribution Guide
+
+I welcome feedback and improvements. If you would like to contribute to making Paws and Preferences even better:
+
+1. **Fork the Repository**
+2. **Create a Feature Branch:** (`git checkout -b feature/AmazingFeature`)
+3. **Commit your Changes:** (`git commit -m 'Add some AmazingFeature'`)
+4. **Push to the Branch:** (`git push origin feature/AmazingFeature`)
+5. **Open a Pull Request**
+
+Please ensure your code strictly follows the existing vanilla JavaScript module structure and avoids introducing heavy third-party dependencies unless strictly necessary for UX (e.g., Hammer.js).
+
+## Support and Contact
+
+Designed and Developed by:
+**Ausca Lai**, 2026.
+
+- **GitHub:** [@auscalai](https://github.com/auscalai)
+- **Project Link:** [Paws and Preferences Live Demo](https://auscalai.github.io/paws-and-preferences/)
+
+Created specifically for the Netizen Experience Technology Team Assessment.

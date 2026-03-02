@@ -1,0 +1,193 @@
+<!-- © Ausca Lai 2026 / Netizen Experience Technical Assessment -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Paws & Preferences — Find Your Favourite Kitty</title>
+  <meta name="description"
+    content="Swipe through adorable cats to find your favourites! A Tinder-style cat matching experience powered by Cataas.">
+  <meta property="og:title" content="Paws & Preferences — Find Your Favourite Kitty">
+  <meta property="og:description"
+    content="Swipe right on cats you love, left on cats you don't. Discover your feline preferences!">
+  <meta property="og:type" content="website">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- ═══════ SVG DEFINITIONS (icons) ═══════ -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <path
+        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+      </path>
+    </symbol>
+    <symbol id="icon-heart-broken" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19.5 12.572l-7.5 7.428l-7.5-7.428A5 5 0 1 1 12 6.006a5 5 0 1 1 7.5 6.572"></path>
+      <path d="M12 6L8 12h4l-2 6"></path>
+    </symbol>
+    <symbol id="icon-paw" viewBox="0 0 24 24" fill="currentColor">
+      <path
+        d="M12 22c-1.5 0-3-.5-4-1.5C6 19 5.5 17 6 15c.5-2 2-4 3.5-5S12 8 12 8s1 1 2.5 2 3 3 3.5 5c.5 2 0 4-2 5.5-1 1-2.5 1.5-4 1.5z" />
+      <circle cx="7" cy="8" r="2" />
+      <circle cx="17" cy="8" r="2" />
+      <circle cx="5" cy="13" r="1.5" />
+      <circle cx="19" cy="13" r="1.5" />
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="23 4 23 10 17 10"></polyline>
+      <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+    </symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+      <polyline points="12 5 19 12 12 19"></polyline>
+    </symbol>
+  </svg>
+
+  <!-- ═══════ LOADING SCREEN ═══════ -->
+  <section id="loading-screen" class="screen active">
+    <div class="loading-content">
+      <div class="loading-icon">
+        <svg width="56" height="56" aria-hidden="true">
+          <use href="#icon-paw" />
+        </svg>
+      </div>
+      <h1 class="loading-title">Paws &<br>Preferences</h1>
+      <p class="loading-subtitle">Fetching adorable cats for you...</p>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-bar"></div>
+      </div>
+      <p class="progress-text" id="progress-text" aria-live="polite" aria-atomic="true">0 / 15</p>
+    </div>
+  </section>
+
+  <!-- ═══════ SWIPE SCREEN ═══════ -->
+  <section id="swipe-screen" class="screen">
+    <header class="app-header">
+      <div class="logo">
+        <svg width="22" height="22" aria-hidden="true">
+          <use href="#icon-paw" />
+        </svg>
+        <span>Paws & Preferences</span>
+      </div>
+      <div class="counter" id="swipe-counter">1 / 15</div>
+    </header>
+
+    <div class="card-container" id="card-container">
+      <!-- Cards injected by JS -->
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn dislike-btn" id="btn-dislike" aria-label="Dislike this cat">
+        <svg width="30" height="30" aria-hidden="true">
+          <use href="#icon-x" />
+        </svg>
+      </button>
+      <button class="action-btn like-btn" id="btn-like" aria-label="Like this cat">
+        <svg width="30" height="30" aria-hidden="true">
+          <use href="#icon-heart" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="swipe-hint" id="swipe-hint">
+      <span><svg width="14" height="14" aria-hidden="true">
+          <use href="#icon-arrow-left" />
+        </svg> Nope</span>
+      <span>Like <svg width="14" height="14" aria-hidden="true">
+          <use href="#icon-arrow-right" />
+        </svg></span>
+    </div>
+  </section>
+
+  <!-- ═══════ SUMMARY SCREEN ═══════ -->
+  <section id="summary-screen" class="screen">
+    <div class="summary-content">
+      <h1 class="summary-title">Your Results</h1>
+      <div class="summary-stats">
+        <div class="stat-card stat-liked">
+          <svg class="stat-icon" width="28" height="28" aria-hidden="true">
+            <use href="#icon-heart" />
+          </svg>
+          <div class="stat-number" id="liked-count">0</div>
+          <div class="stat-label">Liked</div>
+        </div>
+        <div class="stat-card stat-disliked">
+          <svg class="stat-icon" width="28" height="28" aria-hidden="true">
+            <use href="#icon-heart-broken" />
+          </svg>
+          <div class="stat-number" id="disliked-count">0</div>
+          <div class="stat-label">Noped</div>
+        </div>
+      </div>
+
+      <div id="liked-section">
+        <h2 class="gallery-title">Your Favourite Kitties</h2>
+        <div class="gallery" id="gallery"></div>
+      </div>
+
+      <div id="no-likes-section" class="hidden">
+        <div class="no-likes">
+          <svg width="64" height="64" class="no-likes-icon" aria-hidden="true">
+            <use href="#icon-heart-broken" />
+          </svg>
+          <p>No favourites this time...</p>
+          <p class="no-likes-sub">Give it another go!</p>
+        </div>
+      </div>
+
+      <button class="play-again-btn" id="btn-play-again">
+        <svg width="18" height="18" aria-hidden="true">
+          <use href="#icon-refresh" />
+        </svg>
+        Play Again
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════ ERROR SCREEN ═══════ -->
+  <section id="error-screen" class="screen">
+    <div class="error-content" role="alert">
+      <svg width="56" height="56" class="error-icon" aria-hidden="true">
+        <use href="#icon-heart-broken" />
+      </svg>
+      <h2>Oops! Cats are hiding...</h2>
+      <p class="error-message" id="error-message">Could not fetch cats from the server.</p>
+      <button class="retry-btn" id="btn-retry">
+        <svg width="18" height="18" aria-hidden="true">
+          <use href="#icon-refresh" />
+        </svg>
+        Try Again
+      </button>
+    </div>
+  </section>
+
+  <div class="watermark">© Ausca Lai 2026</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
