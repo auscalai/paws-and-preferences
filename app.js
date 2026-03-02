@@ -392,7 +392,7 @@
 
       els.gallery.innerHTML = likedCats.map(cat => `
         <div class="gallery-item" tabindex="0">
-          <img src="${cat.imageUrl}" alt="Liked cat${cat.tags.length > 0 ? ' - ' + cat.tags.slice(0, 2).join(', ') : ''}" loading="lazy">
+          <img src="${cat.imageUrl}" alt="Liked cat${cat.tags.length > 0 ? ' - ' + cat.tags.slice(0, 2).join(', ') : ''}" loading="eager" decoding="sync">
           <svg class="gallery-heart" width="16" height="16" aria-hidden="true"><use href="#icon-heart"/></svg>
         </div>
       `).join('');
